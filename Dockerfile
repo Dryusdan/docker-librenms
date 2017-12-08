@@ -121,7 +121,6 @@ ARG CUSTOM_PKGS="freetype \
 				graphviz \
 				git \
 				fping \
-				composer \
                 libldap"
 
 ENV UID=991 \
@@ -190,6 +189,8 @@ RUN export BUILD_DEPS="build-base \
     && make clean \
     && chmod u+x /usr/local/bin/* /etc/s6.d/*/* \
     && if [ "${PHP_EXT_LIST}" != "" ]; then docker-php-ext-install ${PHP_EXT_LIST}; fi \
+	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+	&& composer install --no-dev \
 	&& git clone https://github.com/librenms/librenms.git /librenms \
     && apk del ${BUILD_DEPS} \
     && rm -rf /tmp/* /var/cache/apk/* /usr/src/*
