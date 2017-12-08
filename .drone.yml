@@ -1,0 +1,12 @@
+pipeline:
+  build:
+    image: plugins/docker
+    registry: registry.dryusdan.fr
+    repo: registry.dryusdan.fr/dryusdan/librenms
+    secrets: [ docker_username, docker_password ]
+
+  push:
+    image: appleboy/drone-git-push
+    branch: master
+    remote: git@github.com:Dryusdan/docker-librenms.git
+    secrets: [ git_push_ssh_key ]
