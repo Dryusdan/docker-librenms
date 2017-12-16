@@ -123,7 +123,7 @@ ARG CUSTOM_PKGS="freetype \
 		fping \
 		net-snmp \
                 libldap"
-
+ARG LIBRENMS_VER=1.34
 ENV UID=991 \
     GID=991
 
@@ -154,7 +154,7 @@ RUN export BUILD_DEPS="build-base \
                     libxml2 \
                     libressl \
                     pcre \
-		            zlib \
+	            zlib \
                     s6 \
                     su-exec \
                     ${CUSTOM_PKGS} \
@@ -192,7 +192,7 @@ RUN export BUILD_DEPS="build-base \
     && chmod u+x /usr/local/bin/* /etc/s6.d/*/* \
     && if [ "${PHP_EXT_LIST}" != "" ]; then docker-php-ext-install ${PHP_EXT_LIST}; fi \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-	&& git clone https://github.com/librenms/librenms.git /librenms \
+	&& git clone -b ${LIBRENMS_VER} https://github.com/librenms/librenms.git /librenms \
 	&& cd /librenms \
 	&& composer install --no-dev \
     && apk del ${BUILD_DEPS} \
