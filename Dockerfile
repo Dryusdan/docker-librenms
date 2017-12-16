@@ -81,7 +81,7 @@ ARG PHP_EXT_LIST="gd \
                 ftp \
                 exif \
                 gmp \
-				snmp \
+		snmp \
                 mbstring"
 ARG CUSTOM_BUILD_PKGS="freetype-dev \
                         openldap-dev \
@@ -110,17 +110,18 @@ ARG CUSTOM_PKGS="freetype \
                 icu-libs \
                 libgcc \
                 libstdc++ \
-				whois \
-				snmptt \
-				rrdtool \
-			 	py-mysqldb \
-				nmap \
-				mtr \
-				mariadb-client \
-				imagemagick \
-				graphviz \
-				git \
-				fping \
+		whois \
+		snmptt \
+		rrdtool \
+	 	py-mysqldb \
+		nmap \
+		mtr \
+		mariadb-client \
+		imagemagick \
+		graphviz \
+		git \
+		fping \
+		net-snmp \
                 libldap"
 
 ENV UID=991 \
@@ -144,6 +145,7 @@ RUN export BUILD_DEPS="build-base \
                     wget \
                     ca-certificates \
                     libxml2-dev \
+		    net-snmp-dev \
                     ${CUSTOM_BUILD_PKGS}" \
     && NB_CORES=${BUILD_CORES-$(grep -c "processor" /proc/cpuinfo)} \
     && apk add -U ${BUILD_DEPS} \
@@ -190,8 +192,9 @@ RUN export BUILD_DEPS="build-base \
     && chmod u+x /usr/local/bin/* /etc/s6.d/*/* \
     && if [ "${PHP_EXT_LIST}" != "" ]; then docker-php-ext-install ${PHP_EXT_LIST}; fi \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-	&& composer install --no-dev \
 	&& git clone https://github.com/librenms/librenms.git /librenms \
+	&& cd /librenms \
+	&& composer install --no-dev \
     && apk del ${BUILD_DEPS} \
     && rm -rf /tmp/* /var/cache/apk/* /usr/src/*
 
