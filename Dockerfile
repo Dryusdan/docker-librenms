@@ -124,6 +124,7 @@ ARG CUSTOM_PKGS="freetype \
 		net-snmp \
 		bash \
 		util-linux \
+		net-snmp-tools \
                 libldap"
 ARG LIBRENMS_VER=1.34
 ENV UID=991 \
