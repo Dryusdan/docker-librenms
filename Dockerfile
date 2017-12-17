@@ -40,8 +40,8 @@ ARG NGINX_GPG="573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 \
 ARG PHP_VER=7.1.10
 ARG PHP_MIRROR=http://fr2.php.net
 ARG PHP_CONF="--enable-fpm \
-                --with-fpm-user=web \
-                --with-fpm-group=web \
+                --with-fpm-user=librenms \
+                --with-fpm-group=librenms \
                 --with-config-file-path="/php" \
                 --with-config-file-scan-dir="/php/conf.d" \
                 --disable-cgi \
