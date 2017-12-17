@@ -9,7 +9,7 @@ ARG NGINX_CONF="--prefix=/nginx \
                 --error-log-path=/nginx/logs/nginx_error.log \
                 --pid-path=/nginx/run/nginx.pid \
                 --lock-path=/nginx/run/nginx.lock \
-                --user=web --group=web \
+                --user=web --group=librenms \
                 --with-http_ssl_module \
                 --with-http_realip_module \
                 --with-http_addition_module \
