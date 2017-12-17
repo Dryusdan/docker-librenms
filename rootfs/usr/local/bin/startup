@@ -1,11 +1,16 @@
 #!/bin/sh
 
-addgroup -g ${GID} web && adduser -H -s /bin/sh -D -G web -u ${UID} web
+addgroup -g ${GID} librenms && adduser -H -s /bin/sh -D -G librenms -u ${UID} librenms
 
 mkdir -p /nginx /php
 
-chown -R web:web /nginx /php /etc/s6.d /librenms
+chown -R librenms:librenms /nginx /php /etc/s6.d /librenms
 chmod +x /etc/s6.d/*/run /etc/s6.d/.s6-svscan/finish
+chmod -R 775 /librenms/rrd
+
+cd /librenms
+./scripts/github-remove
+
 
 if [ '$@' == '' ]; then
     exec su-exec web:web /bin/s6-svscan /etc/s6.d
