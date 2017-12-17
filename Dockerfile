@@ -122,6 +122,7 @@ ARG CUSTOM_PKGS="freetype \
 		git \
 		fping \
 		net-snmp \
+		bash \
                 libldap"
 ARG LIBRENMS_VER=1.34
 ENV UID=991 \
