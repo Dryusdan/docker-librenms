@@ -193,6 +193,7 @@ RUN export BUILD_DEPS="build-base \
     && { find /usr/local/bin /usr/local/sbin -type f -perm +0111 -exec strip --strip-all '{}' + || true; } \
     && make clean \
     && chmod u+x /usr/local/bin/* /etc/s6.d/*/* \
+    && chmod +x /usr/sbin/fping6 \
     && if [ "${PHP_EXT_LIST}" != "" ]; then docker-php-ext-install ${PHP_EXT_LIST}; fi \
 	&& curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
 	&& git clone -b ${LIBRENMS_VER} https://github.com/librenms/librenms.git /librenms \

@@ -9,7 +9,7 @@ chmod +x /etc/s6.d/*/run /etc/s6.d/.s6-svscan/finish
 chmod -R 775 /librenms/rrd
 
 cd /librenms
-./scripts/github-remove
+chmod ug+rw /librenms/logs
 
 
 if [ '$@' == '' ]; then
